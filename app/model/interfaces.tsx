@@ -35,4 +35,18 @@ export type Turno = {
     rodadas: Rodada[]
 }
 
+export type Pontucao = {
+    linhas: {
+        time:Time,
+        vitorias:number,
+        empates:number,
+        derrotas:number,
+        golsFeitos:number,
+        golsPegos:number,
+        amarelos:number;
+        azuis:number;
+        vermelhos:number
+    }[]
+}
+
 

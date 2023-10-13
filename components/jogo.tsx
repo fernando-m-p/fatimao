@@ -6,7 +6,7 @@ interface JogoProps {
 import svg from "@/public/versus.svg"
 
 const jogo__informacoesClass = "text-gray-500 font-sans text-xs font-bold tracking-tighter uppercase";
-const jogoClass = "flex flex-col items-center text-center justify-center theme";
+const jogoClass = "h-28 flex flex-col items-center text-center justify-center theme";
 const jogo__informacoes__localClass = "font-normal";
 const placarClass = "items-center text-[#333333] flex justify-center h-16"; 
 const placar__equipesClass = "items-center text-[#333333] flex grow font-sans text-lg font-thin h-40 leading-4 align-middle w-2/5 " ;
@@ -43,10 +43,10 @@ export default function JogoComponent({ jogo }: JogoProps) {
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" ml-1"}></span>
                     <span className={placar_box_versusClass}>
                         <svg viewBox="0 0 100 100" id="scoreboard-vs-icon" width="100%" height="100%">
-                            <line x1="-3" x2="100" y1="1" y2="100" stroke="#555" stroke-width="5">
+                            <line x1="-3" x2="100" y1="1" y2="100" stroke="#555" strokeWidth="5">
 
                             </line>
-                            <line x1="-3" x2="100" y1="100" y2="1" stroke="#555" stroke-width="5">
+                            <line x1="-3" x2="100" y1="100" y2="1" stroke="#555" strokeWidth="5">
                             </line>
                         </svg>
                     </span>
