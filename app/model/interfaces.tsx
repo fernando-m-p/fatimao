@@ -9,12 +9,21 @@ export type Jogador = {
     time:Time;
 }
 
-export type JogoTime = {
+export type JogoTime2 = {
     time:Time;
     gols:Jogador[];
     amarelos:Jogador[];
     azuis:Jogador[];
     vermelhos:Jogador[];
+}
+
+
+export type JogoTime = {
+    time?:Time;
+    gols:number;
+    amarelos:number;
+    azuis:number;
+    vermelhos:number;
 }
 
 export type Jogo = {
@@ -36,17 +45,18 @@ export type Turno = {
 }
 
 export type Pontucao = {
-    linhas: {
-        time:Time,
-        vitorias:number,
-        empates:number,
-        derrotas:number,
-        golsFeitos:number,
-        golsPegos:number,
-        amarelos:number;
-        azuis:number;
-        vermelhos:number
-    }[]
+    linhas: Linha[]
 }
 
+export type Linha = {
+    time?:Time,
+    vitorias:number,
+    empates:number,
+    derrotas:number,
+    golsFeitos:number,
+    golsPegos:number,
+    amarelos:number;
+    azuis:number;
+    vermelhos:number
+}
 

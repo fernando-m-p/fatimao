@@ -29,17 +29,17 @@ export default function JogoComponent({ jogo }: JogoProps) {
             </div>
             <div className={placarClass}>
                 <div className={placar__equipesClass+placar__equipes__mandanteClass}>
-                    <span className="equipes__sigla" title={jogo.mandante.time.nome}>{jogo.mandante.time.abreviado}</span>
-                    <span className="hidden">{jogo.mandante.time.nome}</span>
+                    <span className="equipes__sigla" title={jogo.mandante.time?.nome}>{jogo.mandante.time?.abreviado}</span>
+                    <span className="hidden">{jogo.mandante.time?.nome}</span>
                     <img
                         className= {equipes__escudoClass + " ml-2"}
-                        src={jogo.mandante.time.escudo}
-                        width="30" height="30" title={jogo.mandante.time.nome}
+                        src={jogo.mandante.time?.escudo}
+                        width="30" height="30" title={jogo.mandante.time?.nome}
                         pinger-seen="true"
                     />
                 </div>
                 <div className={placar_boxClass}>
-                    <span className={placar_box__valorClass}>{jogo.mandante.gols.length}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.mandante.gols:""}</span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" ml-1"}></span>
                     <span className={placar_box_versusClass}>
                         <svg viewBox="0 0 100 100" id="scoreboard-vs-icon" width="100%" height="100%">
@@ -51,16 +51,16 @@ export default function JogoComponent({ jogo }: JogoProps) {
                         </svg>
                     </span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" mr-1"}></span>
-                    <span className={placar_box__valorClass}>{jogo.visitante.gols.length}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.visitante.gols :""}</span>
                 </div>
                 <div className={placar__equipesClass+placar__equipes__visitanteClass}>
                     <img 
                          className= {equipes__escudoClass + " mr-2"} 
-                        src={jogo.visitante.time.escudo} width="30" height="30" 
-                        title={jogo.visitante.time.nome} 
+                        src={jogo.visitante.time?.escudo} width="30" height="30" 
+                        title={jogo.visitante.time?.nome} 
                         pinger-seen="true" />
-                    <span className="equipes__sigla" title={jogo.visitante.time.nome} >{jogo.visitante.time.abreviado} </span>
-                    <span className="hidden">{jogo.visitante.time.nome} </span>
+                    <span className="equipes__sigla" title={jogo.visitante.time?.nome} >{jogo.visitante.time?.abreviado} </span>
+                    <span className="hidden">{jogo.visitante.time?.nome} </span>
                 </div>
             </div>
         </div>

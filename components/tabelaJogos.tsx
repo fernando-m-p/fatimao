@@ -28,7 +28,7 @@ export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
         if(index<rodadas.length-1){
 
             setIndex((prev)=>prev+1);
-            console.log(rodadas[index]);
+           
         }
     }
 
@@ -36,16 +36,16 @@ export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
         if(index>0){
 
             setIndex((prev)=>prev-1);
-            console.log(rodadas[index]);
+           
         }
     }
    
     useEffect(()=>{
-        console.log(rodadas[index]);
+       
     },[])
    
     return (
-        <div className="rounded-xl border bg-card text-card-foreground shadow  m-10" >
+        <div className="rounded-xl border bg-card text-card-foreground shadow  m-4 sm:m-10" >
             <div className={"flex flex-col space-y-1.5 py-6"}>
                     <div className="border-b-2 border-black">
 
@@ -63,7 +63,7 @@ export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
                             </path>
                         </svg>
                     </span>
-                    <span className="whitespace-nowrap mx-4 lista-jogos__navegacao--rodada">1ª RODADA - 1º TURNO</span>
+                    <span className="whitespace-nowrap mx-4 lista-jogos__navegacao--rodada">{rodadas[index].descricao}</span>
                     <span className={lista__jogos_navegacao_setasClass + " lista-jogos__navegacao--seta-direita  lista-jogos__navegacao--setas-ativa justify-end"} 
                             onClick={proximo}>
                         <svg stroke="#06AA48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" className="h-6 stroke-[10px]" >

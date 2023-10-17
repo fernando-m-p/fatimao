@@ -26,7 +26,7 @@ export default function JogoComponent({ rodada }: ListaJogoProps) {
             <ul className={lista_jogoClass}>
 
             {rodada.jogos.map((jogo,index) => {
-                        return (<li key={jogo.mandante.time.nome+"_"+jogo.visitante.time.nome+"_"+index} className={lista_jogos_jogoClass}>
+                        return (<li key={jogo.mandante.time?.nome+"_"+jogo.visitante.time?.nome+"_"+index} className={lista_jogos_jogoClass}>
                         <JogoComp jogo={jogo} />
                             </li>)
                 })
