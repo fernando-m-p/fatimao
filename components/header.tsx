@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { Children } from "react"
 
 interface DashboardHeaderProps {
     heading: string
@@ -10,7 +11,8 @@ interface DashboardHeaderProps {
 export function DashboardHeader({
     heading,
     text,
-    src
+    src,
+    children
 }: DashboardHeaderProps) {
 
     return (
@@ -35,7 +37,7 @@ export function DashboardHeader({
                 
                 </div>
                 <div className=" lg:flex lg:flex-1 lg:justify-end">
-                   <Button variant={"outline"}>Admin</Button>
+                  {children}
                 </div>
             </nav>
 

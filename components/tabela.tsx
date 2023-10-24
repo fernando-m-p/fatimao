@@ -16,7 +16,7 @@ interface TabelaProps {
 export default function Tabela({ estatisticas }: TabelaProps) {
   const classificacao__header__tituloClass = "text-[#111111] text-2xl font-bold tracking-tighter leading-7 mb-2.5 uppercase";
   const cabecalhoClass="p-2 border w-16 ";
-  const escodeMobile=" hidden";
+  const escodeMobile=" hidden sm:block";
 
 
 
