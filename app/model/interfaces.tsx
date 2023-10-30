@@ -19,7 +19,7 @@ export type JogoTime2 = {
 
 
 export type JogoTime = {
-    time?:Time;
+    time:number;
     gols:number;
     amarelos:number;
     azuis:number;
@@ -36,6 +36,7 @@ export type Jogo = {
 }
 
 export type Rodada = {
+    index?:string;
     jogos: Jogo[];
     descricao:string;
 }

@@ -1,3 +1,4 @@
+"use client"
 import { Pontucao, Rodada } from "@/app/model/interfaces"
 import {
   Table,
@@ -9,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Card } from "./ui/card"
+import { useEffect } from "react";
 
 interface TabelaProps {
   estatisticas: Pontucao
@@ -17,9 +19,7 @@ export default function Tabela({ estatisticas }: TabelaProps) {
   const classificacao__header__tituloClass = "text-[#111111] text-2xl font-bold tracking-tighter leading-7 mb-2.5 uppercase";
   const cabecalhoClass="p-2 border w-16 ";
   const escodeMobile=" hidden sm:block";
-
-
-
+  
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow  m-4 sm:m-10 flex-1" >
       <div className="px-10 pt-6 border-b-2 border-black">
@@ -49,6 +49,7 @@ export default function Tabela({ estatisticas }: TabelaProps) {
           const jogos:number = linha.vitorias+linha.empates+linha.derrotas;
           
           return (
+
             <div key={index +"-elemento"} className="flex ">
               <div key={index + "-escudo"}className={cabecalhoClass+ " border-r-0"} >
                   <img key={index+"-escudo-img"}src={linha.time?.escudo}/>

@@ -2,6 +2,7 @@ import { Rodada } from "@/app/model/interfaces";
 import JogoComp from "@/components/jogo"
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { useEffect, useState } from "react";
+import { timesMap } from "@/app/jogos";
 
 interface ListaJogoProps {
     rodada: Rodada;
@@ -19,14 +20,16 @@ const lista_jogos_jogoClass = "border-b border-[#e3e3e3] block"
 
 
 export default function JogoComponent({ rodada }: ListaJogoProps) {
-   
-   
+    
     return (
         
             <ul className={lista_jogoClass}>
 
             {rodada.jogos.map((jogo,index) => {
-                        return (<li key={jogo.mandante.time?.nome+"_"+jogo.visitante.time?.nome+"_"+index} className={lista_jogos_jogoClass}>
+                  const mandante = timesMap.get(jogo.mandante.time);
+                  const visitante = timesMap.get(jogo.visitante.time);
+   
+        return (<li key={mandante?.nome+"_"+visitante?.nome+"_"+index} className={lista_jogos_jogoClass}>
                         <JogoComp jogo={jogo} />
                             </li>)
                 })

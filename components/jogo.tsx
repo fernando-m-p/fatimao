@@ -1,3 +1,4 @@
+import { timesMap } from "@/app/jogos";
 import { Jogo } from "@/app/model/interfaces";
 interface JogoProps {
     jogo: Jogo;
@@ -20,6 +21,8 @@ const placar_box_versusClass = "flex h-2 w-2 my-0 mx-1.5 overflow-hidden align-m
 
 
 export default function JogoComponent({ jogo }: JogoProps) {
+    const mandante = timesMap.get(jogo.mandante.time);
+    const visitante = timesMap.get(jogo.visitante.time);
     return (
         <div className={jogoClass}>
             <div className={jogo__informacoesClass}>
@@ -29,12 +32,12 @@ export default function JogoComponent({ jogo }: JogoProps) {
             </div>
             <div className={placarClass}>
                 <div className={placar__equipesClass+placar__equipes__mandanteClass}>
-                    <span className="equipes__sigla" title={jogo.mandante.time?.nome}>{jogo.mandante.time?.abreviado}</span>
-                    <span className="hidden">{jogo.mandante.time?.nome}</span>
+                    <span className="equipes__sigla" title={mandante?.nome}>{mandante?.abreviado}</span>
+                    <span className="hidden">{mandante?.nome}</span>
                     <img
                         className= {equipes__escudoClass + " ml-2"}
-                        src={jogo.mandante.time?.escudo}
-                        width="30" height="30" title={jogo.mandante.time?.nome}
+                        src={mandante?.escudo}
+                        width="30" height="30" title={mandante?.nome}
                         pinger-seen="true"
                     />
                 </div>
@@ -56,11 +59,11 @@ export default function JogoComponent({ jogo }: JogoProps) {
                 <div className={placar__equipesClass+placar__equipes__visitanteClass}>
                     <img 
                          className= {equipes__escudoClass + " mr-2"} 
-                        src={jogo.visitante.time?.escudo} width="30" height="30" 
-                        title={jogo.visitante.time?.nome} 
+                        src={visitante?.escudo} width="30" height="30" 
+                        title={visitante?.nome} 
                         pinger-seen="true" />
-                    <span className="equipes__sigla" title={jogo.visitante.time?.nome} >{jogo.visitante.time?.abreviado} </span>
-                    <span className="hidden">{jogo.visitante.time?.nome} </span>
+                    <span className="equipes__sigla" title={visitante?.nome} >{visitante?.abreviado} </span>
+                    <span className="hidden">{visitante?.nome} </span>
                 </div>
             </div>
         </div>

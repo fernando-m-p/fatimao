@@ -1,19 +1,25 @@
-import { DashboardHeader } from "@/components/header";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+"use client"
 
-export default function Admin() {
+import { useSession } from "next-auth/react"
+import LoginPage from "./login"
+import  AdminPage  from "./admin"
+import { getRodadas } from "@/lib/firabase";
+import { Rodada } from "../model/interfaces";
 
+  
+
+export default function AuthenticationPage() {
+    const session = useSession();
     
-
     return (
-        <div>
-            <DashboardHeader heading='Fatimão 2023' src='/escudo.png'>
-                <Link href={"/"}>
-                    <Button variant={"outline"}>Home</Button>
-                </Link>
-            </DashboardHeader>
+        <>
+            { !session.data ?
+                <LoginPage /> :
+                <AdminPage />
+            }
+            
+        </>
 
-        </div>
     )
 }
+

@@ -23,6 +23,7 @@ const lista_jogos_jogoClass = "border-b border-[#e3e3e3] block"
 export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
 
     const [index,setIndex] = useState(0);
+    
 
     const proximo = ()=>{
         if(index<rodadas.length-1){
