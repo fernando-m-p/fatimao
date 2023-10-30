@@ -44,10 +44,10 @@ export default function Tabela({ estatisticas }: TabelaProps) {
           const jogos: number = linha.vitorias + linha.empates + linha.derrotas;
 
           return (
-            <Popover>
+            <Popover key={index + "-elemento"}>
               <PopoverTrigger asChild>
 
-                <div key={index + "-elemento"} className={(show ? "flex" : " flex ")} onClick={e => { setShow(!show) }}>
+                <div  className={(show ? "flex" : " flex ")} onClick={e => { setShow(!show) }}>
                   <div key={index + "-escudo"} className={cabecalhoClass + " border-r-0"} >
                     {linha.time && <Image alt="" key={index + "-escudo-img"} src={linha.time?.escudo} width={40} height={40} />}
                   </div>
