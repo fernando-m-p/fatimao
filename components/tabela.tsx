@@ -67,7 +67,7 @@ export default function Tabela({ estatisticas }: TabelaProps) {
 
                 </div>
               </PopoverTrigger>
-              <PopOverTabela linha={linha} index={index} key={"pop_"+JSON.stringify(linha.time)}/>
+              <PopOverTabela linha={linha} index={index} />
             </Popover>
           )
         })}
