@@ -21,7 +21,6 @@ export default function Home() {
     const result = fetchData().then(
       res => {
         setRodadasState(res);
-        console.log(res);
         calculaPontos(res);
         return res;
       }

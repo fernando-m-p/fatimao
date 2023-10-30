@@ -28,7 +28,6 @@ export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
         if(index<rodadas.length-1){
 
             setIndex((prev)=>prev+1);
-            console.log(rodadas[index]);
         }
     }
 
@@ -36,7 +35,6 @@ export default function TabelaJogosComponent({ rodadas }: TabelaJogosProps) {
         if(index>0){
 
             setIndex((prev)=>prev-1);
-            console.log(rodadas[index]);
         }
     }
    

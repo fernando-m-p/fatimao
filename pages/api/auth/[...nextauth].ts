@@ -24,22 +24,31 @@ export const authOptions:AuthOptions = {
     async signIn({ account, profile, user, credentials, email }):Promise<boolean>{
       user.access_token = account?.access_token;
       user.id_token = account?.id_token;
-      if (account?.provider === "google") {
-        const a = user.email == "fermope.m@gmail.com"
-        if(typeof a == "undefined" || a == false) return false
+      if(process.env.NEXT_PUBLIC_EMAIL_ADMIN){
+        const admins = process.env.NEXT_PUBLIC_EMAIL_ADMIN?.split(",");
+        if(admins.some( admin => admin == user.email)){
+          user.admin = true;
+        }
+        
       }
+      // if (account?.provider === "google") {
+      //   const a = user.email == "fermope.m@gmail.com"
+      //   if(typeof a == "undefined" || a == false) return false
+      // }
       return true // Do different verification for other providers that don't have `email_verified`
     },
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
         token.access_token = account.access_token
+        token.admin = user.admin
       }
       return token
     },
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
-      session.user.acess_token = token.access_token
+      session.user.acess_token = token.access_token;
+      session.user.admin = token.admin;
       return session
     }
   }

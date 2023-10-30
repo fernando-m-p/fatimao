@@ -2,6 +2,7 @@
 import '@/app/globals.css'
 import AdminPage from '@/app/admin/page'
 import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 
 
@@ -13,8 +14,8 @@ export default function GetLayout({
   const session = useSession();
   return (
     <>
-          {!session.data ?
-              <AdminPage/>
+          {(!session.data?.user.admin) ?
+              redirect("/admin")
             :
             children
           }

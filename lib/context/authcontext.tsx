@@ -45,14 +45,13 @@ export const AuthProvider = ({ children }: any) => {
                 setUser({ email: userCredencial.user.email||""});
             }
         }).catch(error=>{
-            console.log(error.message);
+            console.error(error.message);
         });
         ;
         
     }
 
     const sigOut = () => {
-        console.log("Saindo")
         singOut();
         localStorage.removeItem("user_loged");
         setUser(null);

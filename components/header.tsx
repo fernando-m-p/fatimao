@@ -1,4 +1,7 @@
 "use client"
+
+import  Image  from "next/image"
+
 interface DashboardHeaderProps {
     heading: string
     src?: string
@@ -19,11 +22,14 @@ export function DashboardHeader({
                 <div className="flex lg:flex-1">
                     <a href="/" className="-m-1.5 p-1.5">
                         <span className="sr-only">{text}</span>
-                        <img
+                        {src&& <Image
                             className="h-10 w-auto"
                             src={src}
+                            width={30}
+                            height={30}
                             alt=""
                         />
+                        }
                     </a>
                 </div>
 

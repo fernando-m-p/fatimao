@@ -29,7 +29,6 @@ export default function AdminPage() {
                 }
                 );
                 
-        console.log(rodadasState.rodadas.length);
     }, []);
 
 

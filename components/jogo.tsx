@@ -5,6 +5,7 @@ interface JogoProps {
 };
 
 import svg from "@/public/versus.svg"
+import Image from "next/image";
 
 const jogo__informacoesClass = "text-gray-500 font-sans text-xs font-bold tracking-tighter uppercase";
 const jogoClass = "h-28 flex flex-col items-center text-center justify-center theme";
@@ -34,12 +35,16 @@ export default function JogoComponent({ jogo }: JogoProps) {
                 <div className={placar__equipesClass+placar__equipes__mandanteClass}>
                     <span className="equipes__sigla" title={mandante?.nome}>{mandante?.abreviado}</span>
                     <span className="hidden">{mandante?.nome}</span>
-                    <img
+                    {
+                    mandante&&
+                    <Image
                         className= {equipes__escudoClass + " ml-2"}
                         src={mandante?.escudo}
                         width="30" height="30" title={mandante?.nome}
                         pinger-seen="true"
+                        alt=""
                     />
+                    }
                 </div>
                 <div className={placar_boxClass}>
                     <span className={placar_box__valorClass}>{jogo.finalizado? jogo.mandante.gols:""}</span>
@@ -57,11 +62,15 @@ export default function JogoComponent({ jogo }: JogoProps) {
                     <span className={placar_box__valorClass}>{jogo.finalizado? jogo.visitante.gols :""}</span>
                 </div>
                 <div className={placar__equipesClass+placar__equipes__visitanteClass}>
-                    <img 
+                    {visitante &&
+                    
+                    <Image
+                        alt=""
                          className= {equipes__escudoClass + " mr-2"} 
                         src={visitante?.escudo} width="30" height="30" 
                         title={visitante?.nome} 
                         pinger-seen="true" />
+                    }
                     <span className="equipes__sigla" title={visitante?.nome} >{visitante?.abreviado} </span>
                     <span className="hidden">{visitante?.nome} </span>
                 </div>

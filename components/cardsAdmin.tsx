@@ -7,8 +7,11 @@ import { Button } from "./ui/button"
 import Image from "next/image"
 import { AspectRatio } from "./ui/aspect-ratio"
 import Link from "next/link"
+import { useSession } from "next-auth/react"
 
 export default function CardsAdmin({ rodadas }: { rodadas: Rodada[] }) {
+    const session = useSession();
+
     return (
         <div className="grid md:grid-cols-2 p-4 gap-6 text-center">
             {rodadas.map((rodada) => {
@@ -21,7 +24,7 @@ export default function CardsAdmin({ rodadas }: { rodadas: Rodada[] }) {
                         <CardContent>
                             {
                                 rodada.jogos.map(
-                                    (jogoa,index) => {
+                                    (jogoa, index) => {
                                         const mandante = timesMap.get(jogoa.mandante.time);
                                         const visitante = timesMap.get(jogoa.visitante.time);
                                         const ganhou = jogoa.mandante.gols - jogoa.visitante.gols
@@ -71,11 +74,13 @@ export default function CardsAdmin({ rodadas }: { rodadas: Rodada[] }) {
 
                                                 </CardContent>
                                                 <CardFooter className="justify-center">
-                                                    <Link href={`/admin/rodada/${rodada.index}/jogos/${index}`}>
-                                                        <Button variant={jogoa.finalizado ? "secondary" : "default"} size={"lg"}>
-                                                            {jogoa.finalizado ? "Alterar" : "Adicionar"}
-                                                        </Button>
-                                                    </Link>
+                                                    {session.data?.user.admin &&
+                                                        <Link href={`/admin/rodada/${rodada.index}/jogos/${index}`}>
+                                                            <Button variant={jogoa.finalizado ? "secondary" : "default"} size={"lg"}>
+                                                                {jogoa.finalizado ? "Alterar" : "Adicionar"}
+                                                            </Button>
+                                                        </Link>
+                                                    }
                                                 </CardFooter>
                                             </Card>
                                         )

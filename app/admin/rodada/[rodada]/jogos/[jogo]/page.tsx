@@ -33,7 +33,6 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
         const result = fetchData().then(
             res => {
-                console.log(res);
                 setRodadasState({ jogo: res! });
                 return res;
             }
@@ -74,7 +73,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
                     <div className="flex  flex-1 md:justify-between">
                         <div className="flex justify-start flex-1">
-                            <Image src={mandante?.escudo || ""} alt={`Escudo do time ${mandante?.nome}`} width={60} height={60} className="h-20 w-20" />
+                            {mandante?.escudo &&<Image src={mandante?.escudo} alt={`Escudo do time ${mandante?.nome}`} width={60} height={60} className="h-20 w-20" />}
                             <p className={`hidden md:flex text-xl ${ganhou > 0 ? "font-bold" : "font-normal"} my-auto mx-4 whitespace-nowrap `}>
                                 {`${mandante?.nome}`}
                             </p>
@@ -91,8 +90,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                             <Input type="number" className="w-20"
                                 defaultValue={`${rodadasState.jogo.finalizado ? rodadasState.jogo.visitante.gols : 0}`}
                                 onChange={e => {
-                                    rodadasState.jogo.visitante.gols = Number(e.target.value)
-                                    console.log(rodadasState.jogo.mandante.gols, "X", rodadasState.jogo.visitante.gols)
+                                    rodadasState.jogo.visitante.gols = Number(e.target.value);
                                 }}
                             >
                             </Input>
@@ -103,7 +101,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                 {` ${visitante?.nome}`}
 
                             </p>
-                            <Image src={visitante?.escudo || ""} alt={`Escudo do time ${visitante?.nome}`} width={60} height={60} className="h-20 w-20" />
+                            {visitante?.escudo &&<Image src={visitante?.escudo} alt={`Escudo do time ${visitante?.nome}`} width={60} height={60} className="h-20 w-20" />}
 
                         </div>
 

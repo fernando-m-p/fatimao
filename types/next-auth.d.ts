@@ -9,12 +9,14 @@ declare module "next-auth" {
             /** The user's postal address. */
             acess_token?: string;
             id_token?: string;
+            admin?:boolean;
         } & DefaultSession["user"]
     }
 
     interface User {
         access_token: any
         id_token: any
+        admin?:boolean
         & DefaultSession["user"];
     }
 }
@@ -24,5 +26,6 @@ declare module "next-auth/jwt" {
     interface JWT {
         /** OpenID ID Token */
         access_token?: string;
+        admin?:boolean;
     }
 }

@@ -70,14 +70,12 @@ export const getRodadas = async () => {
             snapshot.forEach(child=>{
                 const val:Rodada = child.val();
                 val.index = child.key;
-                console.log(val);
                 rodadas.push(
                     val
                 );
             });
             return rodadas;
         } else {
-            console.log("No data available");
         }
     }).catch((error) => {
         console.error(error);
@@ -100,19 +98,15 @@ export const gravarJogo = async ({rodada,idJogo, jogo, token, acess_token}:{roda
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
-        console.log(errorCode, errorMessage, email, credential);
       });
     const dbRefer = getDatabase(app);
-    console.log(dbRefer, jogo);
     await update(ref(dbRefer,`rodadas/${rodada}/jogos/${idJogo}`),
     jogo
     
     ).then(()=>{
-        console.log("Salvo");
     }).catch(error=>{
-        console.log(error);
+        console.error(error);
     });
-    console.log(dbRefer);
     
 }
 
@@ -122,11 +116,8 @@ export const getRodada = async ({id}:{id:string}) => {
     return await get(child(dbRefer, `rodadas/${id}`)).then(snapshot => {
         if (snapshot.exists()) {
             const val:Rodada = snapshot.val();
-            console.log(val);
             return val;
-        } else {
-            console.log("No data available");
-        }
+        } 
     }).catch((error) => {
         console.error(error);
     });
@@ -141,11 +132,8 @@ export const getJogo = async ({rodada,idJogo}:{rodada:string, idJogo:string}) =>
     return await get(child(dbRefer, `rodadas/${rodada}/jogos/${idJogo}`)).then(snapshot => {
         if (snapshot.exists()) {
             const val:Jogo = snapshot.val();
-            console.log(val);
             return val;
-        } else {
-            console.log("No data available");
-        }
+        } 
     }).catch((error) => {
         console.error(error);
     });

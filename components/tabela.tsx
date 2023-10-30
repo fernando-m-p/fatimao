@@ -1,16 +1,6 @@
 "use client"
 import { Pontucao, Rodada } from "@/app/model/interfaces"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Card } from "./ui/card"
-import { useEffect } from "react";
+import Image from "next/image";
 
 interface TabelaProps {
   estatisticas: Pontucao
@@ -52,7 +42,7 @@ export default function Tabela({ estatisticas }: TabelaProps) {
 
             <div key={index +"-elemento"} className="flex ">
               <div key={index + "-escudo"}className={cabecalhoClass+ " border-r-0"} >
-                  <img key={index+"-escudo-img"}src={linha.time?.escudo}/>
+                  {linha.time && <Image alt="" key={index+"-escudo-img"} src={linha.time?.escudo}/>}
               </div>
               <div key={index + "-nome"}className={cabecalhoClass+" flex-1 border-l-0"} >{linha.time?.nome}</div>
               <div key={index + "-pontos"} className={cabecalhoClass} >{pontos}</div>
