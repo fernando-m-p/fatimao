@@ -1,3 +1,5 @@
+import { nomeTimes } from "../jogos";
+
 export type Time = {
     nome:string;
     escudo: string;
@@ -33,6 +35,7 @@ export type Jogo = {
     local:string;
     data:string;
     hora:string;
+    eventos:{ nome: string; tipo: "gol" | "cartao_amarelo" | "cartao_azul" | "cartao_vermelho"; time: nomeTimes; }[] | undefined
 }
 
 export type Rodada = {

@@ -88,17 +88,23 @@ export const getRodadas = async () => {
 export const gravarJogo = async ({rodada,idJogo, jogo, token, acess_token}:{rodada:string, idJogo:string, jogo:Jogo, token:string|undefined, acess_token:string|undefined})=>{
     
     const auth = getAuth(app);
-    const credential = GoogleAuthProvider.credential(token,acess_token);;
-    signInWithCredential(auth, credential).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+    if(!auth.currentUser){
+
+        
+        signInWithCredential(auth, GoogleAuthProvider.credential(token,acess_token)).catch((error) => {
+            
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+            
+            console.error(error);
+        });
+    }
     const dbRefer = getDatabase(app);
     await update(ref(dbRefer,`rodadas/${rodada}/jogos/${idJogo}`),
     jogo

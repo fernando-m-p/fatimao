@@ -1,12 +1,28 @@
 import { Pontucao, Rodada, Time, Linha, Jogo } from "@/app/model/interfaces"
 
 export const enum nomeTimes {
+    Nenhum = "",
     Bayern = "Bayern de Munique",
     Roma = "Roma",
     Real = "Real Madrid",
     Barcelona = "Barcelona",
     Internazionale = "Internazionale"
+
 }
+
+
+export enum nomesTimes {
+    Nenhum = "",
+    Bayern = "Bayern de Munique",
+    Roma = "Roma",
+    Real = "Real Madrid",
+    Barcelona = "Barcelona",
+    Internazionale = "Internazionale"
+
+}
+
+
+
 
 
 const enum horarios {
