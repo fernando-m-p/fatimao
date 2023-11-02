@@ -63,16 +63,13 @@ export const pegaEstatisticas = (rodadas: Rodada[], time: number): Linha => {
         vitorias: 0
     }
     rodadas.map(rodada => {
-        console.log("Rodada ", rodada.descricao);
         rodada.jogos.filter(jogo => jogo.finalizado && (jogo.mandante.time == time || jogo.visitante.time == time)).map(
             
             jogo => {
                 
                 const mandante = timesMap.get(jogo.mandante.time);
                 const visitante = timesMap.get(jogo.visitante.time);
-                console.log("Jogo ", mandante?.nome, " X ", visitante?.nome);
-                console.log(linha.amarelos);
-                console.log(jogo);
+                
                 if(jogo.eventos && jogo.eventos.length>0){
                     jogo.mandante.amarelos = 0;
                     jogo.mandante.azuis = 0;
@@ -119,7 +116,6 @@ export const pegaEstatisticas = (rodadas: Rodada[], time: number): Linha => {
                     linha.azuis += jogo.visitante.azuis;
                     linha.vermelhos += jogo.visitante.vermelhos;
                 }
-                console.log(linha.amarelos);
             }
         )
     })
