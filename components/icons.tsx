@@ -67,9 +67,9 @@ export const Icons = {
         rx="8"
         fill={fill || "red"}
         stroke="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
         {...props}
       />
 
@@ -88,9 +88,9 @@ export const Icons = {
         rx="8"
         fill={fill || "red"}
         stroke="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="16"
         {...props}
       />
 
