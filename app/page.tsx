@@ -3,17 +3,19 @@ import { DashboardHeader } from "@/components/header"
 import Tabela from '@/components/tabela'
 import TabelaRodada from '@/components/tabelaJogos';
 import { Linha, Rodada } from './model/interfaces'
-import {  timesMap, pegaEstatisticas } from './jogos'
+import { timesMap, pegaEstatisticas } from './jogos'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link';
 import { getRodadas } from "@/lib/firabase";
 import { useEffect, useState } from "react";
+import ListaArtilheirosComponent from "@/components/ListaArtilheiros";
+import ListaPunidosComponent from "@/components/ListaPunidos";
 
 
 export default function Home() {
   const [rodadasState, setRodadasState] = useState([] as Rodada[])
-  const [estatisticas, setEstatisticas] = useState({linhas:[]} as {linhas:Linha[]})
-  
+  const [estatisticas, setEstatisticas] = useState({ linhas: [] } as { linhas: Linha[] })
+
 
   useEffect(() => {
     const fetchData = async () => getRodadas();
@@ -28,11 +30,11 @@ export default function Home() {
   }, []);
 
 
-  function calculaPontos(rodadasC:Rodada[]) {
+  function calculaPontos(rodadasC: Rodada[]) {
     estatisticas.linhas = [];
-    timesMap.forEach((time,index) => {
+    timesMap.forEach((time, index) => {
       estatisticas.linhas.push(pegaEstatisticas(rodadasC, index));
-      });
+    });
     estatisticas.linhas.sort((a, b) => {
       const pontosA = 3 * a.vitorias + a.empates;
       const pontosB = 3 * b.vitorias + b.empates;
@@ -65,9 +67,23 @@ export default function Home() {
         </Link>
       </DashboardHeader>
       <div className='flex flex-col sm:flex-row'>
-        {estatisticas.linhas.length > 0 &&<Tabela estatisticas={estatisticas} />}
+        {estatisticas.linhas.length > 0 && <Tabela estatisticas={estatisticas} />}
         {rodadasState.length > 0 &&
-          <TabelaRodada rodadas={rodadasState} />}
+          <>
+            <TabelaRodada rodadas={rodadasState} />
+
+          </>
+        }
+
+
+      </div>
+      <div className="flex flex-row justify-center">
+        {rodadasState.length > 0 &&
+          <>
+            <ListaArtilheirosComponent rodadas={rodadasState} />
+            <ListaPunidosComponent rodadas={rodadasState} />
+          </>
+        }
       </div>
 
     </>

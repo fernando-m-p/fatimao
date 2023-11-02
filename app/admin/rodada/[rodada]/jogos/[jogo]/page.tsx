@@ -109,13 +109,11 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
 
     useEffect(() => {
-
         const id = params.rodada;
         const fetchData = async () => getJogo({ rodada: params.rodada, idJogo: params.jogo });
 
         const result = fetchData().then(
             res => {
-
                 form.setValue("golsMandante", res?.mandante?.gols.toString() || "0");
                 form.setValue("golsVisitante", res?.visitante?.gols.toString() || "0");
                 form.setValue("finalizado", res?.finalizado || false);
@@ -265,7 +263,6 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                             <div  className="flex flex-col sm:flex-row justify-between gap-6 my-2">
                                                                 <FormField
                                                                     control={form.control}
-                                                                    key={field.id + "_nome"}
                                                                     name={`eventos.${index}.nome`}
                                                                     render={({ field }) => (
                                                                         <FormItem>
@@ -321,7 +318,6 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                             <div  className="flex flex-col sm:flex-row my-2 justify-between gap-6">
                                                                 <FormField
                                                                     control={form.control}
-                                                                    key={field.id + "_nome"}
                                                                     name={`eventos.${index}.nome`}
                                                                     render={({ field }) => (
                                                                         <FormItem>
@@ -338,7 +334,6 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
                                                                 <FormField
                                                                     control={form.control}
-                                                                    key={field.id + "_tipo"}
                                                                     name={`eventos.${index}.tipo`}
                                                                     render={({ field }) => (
                                                                         <FormItem className="flex-1">

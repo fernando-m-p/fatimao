@@ -75,6 +75,27 @@ export const Icons = {
 
     </svg>
   ),
+  card2: (fill: "red" | "yellow" | "blue", props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 128 180"
+    >
+      <rect
+        x="20"
+        y="20"
+        width="80"
+        height="140"
+        rx="8"
+        fill={fill || "red"}
+        stroke="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="16"
+        {...props}
+      />
+
+    </svg>
+  ),
 
   x: (pops: IconProps) => {
     return(

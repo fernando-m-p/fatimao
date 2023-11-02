@@ -20,22 +20,22 @@ const lista_jogos_jogoClass = "border-b border-[#e3e3e3] block"
 
 
 export default function JogoComponent({ rodada }: ListaJogoProps) {
-    
-    return (
-        
-            <ul className={lista_jogoClass}>
 
-            {rodada.jogos.map((jogo,index) => {
-                  const mandante = timesMap.get(jogo.mandante.time);
-                  const visitante = timesMap.get(jogo.visitante.time);
-   
-        return (<li key={mandante?.nome+"_"+visitante?.nome+"_"+index} className={lista_jogos_jogoClass}>
-                        <JogoComp jogo={jogo} />
-                            </li>)
-                })
-            
+    return (
+
+        <ul className={lista_jogoClass}>
+
+            {rodada.jogos.map((jogo, index) => {
+                const mandante = timesMap.get(jogo.mandante.time);
+                const visitante = timesMap.get(jogo.visitante.time);
+
+                return (<li key={mandante?.nome + "_" + visitante?.nome + "_" + index} className={lista_jogos_jogoClass}>
+                    <JogoComp jogo={jogo} />
+                </li>)
+            })
+
             }
-            </ul>
+        </ul>
     )
 
 

@@ -39,6 +39,14 @@ timesMap.set(1, { nome: nomeTimes.Barcelona, abreviado: "BAY", escudo: "https://
 timesMap.set(3, { nome: nomeTimes.Internazionale, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
 
 
+export const timesMapNome: Map<string, Time> = new Map<string, Time>();
+timesMapNome.set(nomeTimes.Bayern, { nome: nomeTimes.Bayern, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2018/03/11/bayern-de-munique.svg" });
+timesMapNome.set(nomeTimes.Roma, { nome: nomeTimes.Roma, abreviado: "ROM", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/roma.svg" });
+timesMapNome.set(nomeTimes.Real, { nome: nomeTimes.Real, abreviado: "REL", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/real-madrid.svg" });
+timesMapNome.set(nomeTimes.Barcelona, { nome: nomeTimes.Barcelona, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/teams/2018/03/11/barcelona.svg" });
+timesMapNome.set(nomeTimes.Internazionale, { nome: nomeTimes.Internazionale, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
+
+
 
 
 export const pegaEstatisticas = (rodadas: Rodada[], time: number): Linha => {
@@ -55,8 +63,43 @@ export const pegaEstatisticas = (rodadas: Rodada[], time: number): Linha => {
         vitorias: 0
     }
     rodadas.map(rodada => {
+        console.log("Rodada ", rodada.descricao);
         rodada.jogos.filter(jogo => jogo.finalizado && (jogo.mandante.time == time || jogo.visitante.time == time)).map(
+            
             jogo => {
+                
+                const mandante = timesMap.get(jogo.mandante.time);
+                const visitante = timesMap.get(jogo.visitante.time);
+                console.log("Jogo ", mandante?.nome, " X ", visitante?.nome);
+                console.log(linha.amarelos);
+                console.log(jogo);
+                if(jogo.eventos && jogo.eventos.length>0){
+                    jogo.mandante.amarelos = 0;
+                    jogo.mandante.azuis = 0;
+                    jogo.mandante.vermelhos = 0;
+                    jogo.visitante.amarelos = 0;
+                    jogo.visitante.azuis = 0;
+                    jogo.visitante.vermelhos = 0;
+                    
+                    jogo.eventos.forEach( ev =>{
+                        if(ev.tipo != "gol"){
+                            if(ev.time == mandante?.nome){
+                                jogo.mandante.amarelos += (ev.tipo =="cartao_amarelo")?1:0;
+                                jogo.mandante.azuis += (ev.tipo =="cartao_azul")?1:0;
+                                jogo.mandante.vermelhos += (ev.tipo =="cartao_vermelho")?1:0;
+                            }
+                        }
+                        if(ev.tipo != "gol"){
+                            if(ev.time == visitante?.nome){
+                                jogo.visitante.amarelos += (ev.tipo =="cartao_amarelo")?1:0;
+                                jogo.visitante.azuis += (ev.tipo =="cartao_azul")?1:0;
+                                jogo.visitante.vermelhos += (ev.tipo =="cartao_vermelho")?1:0;
+                            }
+                        }
+                    })
+                    
+                    
+                }
                 if (jogo.mandante.time == time) {
                     linha.vitorias += jogo.mandante.gols > jogo.visitante.gols ? 1 : 0;
                     linha.derrotas += jogo.visitante.gols > jogo.mandante.gols ? 1 : 0;
@@ -76,6 +119,7 @@ export const pegaEstatisticas = (rodadas: Rodada[], time: number): Linha => {
                     linha.azuis += jogo.visitante.azuis;
                     linha.vermelhos += jogo.visitante.vermelhos;
                 }
+                console.log(linha.amarelos);
             }
         )
     })

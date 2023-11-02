@@ -50,16 +50,16 @@ export default function FormFieldTimeComponent({ fieldArray, form, visitante, ma
                                     <SelectItem value={mandante?.nome}>
                                         <span className="flex flex-row gap-6">
 
-                                            <Image src={visitante!.escudo} alt="" width={20} height={20} className="hidden md:block"/>
-                                            {visitante?.nome}
+                                            <Image src={mandante!.escudo} alt="" width={20} height={20} className="hidden md:block"/>
+                                            {mandante?.nome}
                                         </span>
                                     </SelectItem>}
                                 {visitante &&
                                     <SelectItem value={visitante?.nome} >
                                         <span className="flex  flex-row gap-6">
 
-                                            <Image src={mandante!.escudo} alt="" width={20} height={20} className="hidden md:block"/>
-                                            {mandante?.nome}
+                                            <Image src={visitante!.escudo} alt="" width={20} height={20} className="hidden md:block"/>
+                                            {visitante?.nome}
                                         </span>
                                     </SelectItem>}
 
