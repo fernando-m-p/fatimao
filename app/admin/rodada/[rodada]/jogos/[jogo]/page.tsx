@@ -125,7 +125,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
             }
         );
 
-    }, []);
+    }, [form, params.jogo, params.rodada]);
 
 
     const mandante = (!!rodadasState) ? timesMap.get(rodadasState.jogo.mandante?.time) : null;

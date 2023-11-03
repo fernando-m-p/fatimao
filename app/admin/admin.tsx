@@ -15,11 +15,9 @@ export default function AdminPage() {
     const session = useSession();
     const user = session.data?.user;
     const [rodadasState, setRodadasState] = useState({rodadas:[]} as {rodadas:Rodada[]})
-    let rod: Rodada[] = []
-
+    
     useEffect(() => {
         
-            rod = []
             const fetchData = async () => getRodadas();
             
             const result = fetchData().then(

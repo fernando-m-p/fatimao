@@ -5,41 +5,15 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { timesMapNome } from "@/app/jogos";
 import Image from "next/image";
 
-export default function ListaArtilheirosComponent({ rodadas }: { rodadas: Rodada[] }) {
-    const [artilheiros, setArtilheiros] = useState(new Map<string, { gols: number, time: Time }>())
-    const [nomes, setNomes] = useState([] as string[])
+export default function ListaArtilheirosComponent({ artilheiros, nomes }: { artilheiros: Map<string, { gols: number, time: Time }>, nomes: string[] }) {
+    
 
-    useEffect(() => {
-        if (artilheiros.size == 0) {
-
-            rodadas.map(rodada => {
-                rodada.jogos.map(
-                    (jogo) => {
-                        jogo.eventos?.filter(e => e.tipo == "gol").map(
-                            evento => {
-                                if (artilheiros.has(evento.nome)) {
-                                    artilheiros.get(evento.nome)!.gols++;
-                                } else {
-                                    nomes.push(evento.nome);
-                                    artilheiros.set(evento.nome, { gols: 1, time: timesMapNome.get(evento.time)! })
-
-
-                                }
-                            }
-                        )
-                    }
-                )
-
-            })
-
-        }
-    }
-        , [])
+    
     const classificacao__header__tituloClass = "text-[#111111] text-2xl font-bold tracking-tighter leading-7 px-4 mb-2.5 uppercase ";
     const lista__jogos_navegacaoClass = "border-y border-stone-100 text-[#111111] flex text-base font-bold justify-center aling-center upercase py-2.5 w-100 mx-7";
     const lista__jogos_navegacao_setasClass = "text-[#cccccc] grow text-2xl h-8 fill-[#dddddd] flex items-center ";
     const lista_jogoClass = "text-base p-0 h-5/6 list-none"
-    const lista_jogos_jogoClass = "flex flex-row gap-4 text-2xl m-4 p-4 border-b border-[#e3e3e3]  justify-between"
+    const lista_jogos_jogoClass = "flex flex-row gap-4 text-2xl m-4 p-4 border-b border-[#e3e3e3] block justify-between"
 
 
     return (

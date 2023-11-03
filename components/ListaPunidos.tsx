@@ -6,50 +6,9 @@ import { timesMapNome } from "@/app/jogos";
 import Image from "next/image";
 import { Icons } from "./icons";
 
-export default function ListaPunidosComponent({ rodadas }: { rodadas: Rodada[] }) {
-    const [punidos, setPunidos] = useState(new Map<string, { amarelo: number, azul: number, vermelho: number, time: Time }>())
-    const [nomes, setNomes] = useState([] as string[])
-
-    useEffect(() => {
-        if (punidos.size == 0) {
-
-            rodadas.map(rodada => {
-                rodada.jogos.map(
-                    (jogo) => {
-                        jogo.eventos?.filter(e => e.tipo != "gol").map(
-                            evento => {
-                                if (evento.nome != "?") {
-
-                                    if (punidos.has(evento.nome)) {
-                                        if (evento.tipo == "cartao_amarelo")
-                                            punidos.get(evento.nome)!.amarelo++;
-                                        if (evento.tipo == "cartao_azul")
-                                            punidos.get(evento.nome)!.azul++;
-                                        if (evento.tipo == "cartao_vermelho")
-                                            punidos.get(evento.nome)!.vermelho++;
-                                    } else {
-                                        nomes.push(evento.nome);
-
-                                        punidos.set(evento.nome, {
-                                            amarelo: evento.tipo == "cartao_amarelo" ? 1 : 0,
-                                            azul: evento.tipo == "cartao_azul" ? 1 : 0,
-                                            vermelho: evento.tipo == "cartao_vermelho" ? 1 : 0,
-                                            time: timesMapNome.get(evento.time)!
-                                        })
-
-
-                                    }
-                                }
-                            }
-                        )
-                    }
-                )
-
-            })
-
-        }
-    }
-        , [])
+export default function ListaPunidosComponent({ punidos, nomes }: { punidos: Map<string,{amarelo:number, azul:number, vermelho:number, time:Time}>, nomes: string[] }) {
+    
+  
     const classificacao__header__tituloClass = "text-[#111111] text-2xl font-bold tracking-tighter leading-7 px-4 mb-2.5 uppercase ";
     const lista__jogos_navegacaoClass = "border-y border-stone-100 text-[#111111] flex text-base font-bold justify-center aling-center upercase py-2.5 w-100 mx-7";
     const lista__jogos_navegacao_setasClass = "text-[#cccccc] grow text-2xl h-8 fill-[#dddddd] flex items-center ";

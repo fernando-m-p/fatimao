@@ -2,8 +2,8 @@
 import { DashboardHeader } from "@/components/header"
 import Tabela from '@/components/tabela'
 import TabelaRodada from '@/components/tabelaJogos';
-import { Linha, Rodada } from './model/interfaces'
-import { timesMap, pegaEstatisticas } from './jogos'
+import { Linha, Rodada, Time } from './model/interfaces'
+import { timesMap, pegaEstatisticas, timesMapNome } from './jogos'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link';
 import { getRodadas } from "@/lib/firabase";
@@ -15,20 +15,33 @@ import ListaPunidosComponent from "@/components/ListaPunidos";
 export default function Home() {
   const [rodadasState, setRodadasState] = useState([] as Rodada[])
   const [estatisticas, setEstatisticas] = useState({ linhas: [] } as { linhas: Linha[] })
+  const artilheiros = new Map<string, { gols: number, time: Time }>();
+  const punidos = new Map<string, { amarelo: number, azul: number, vermelho: number, time: Time }>();
+  const nomesArtilheiros = [] as string[];
+  const nomesPunidos = [] as string[];
+
 
 
   useEffect(() => {
-    const fetchData = async () => getRodadas();
+    if (rodadasState.length == 0) {
+      const fetchData = async () => getRodadas();
+      const result = fetchData().then(
+        res => {
+          console.log("useEfect");
+          setRodadasState(res);
+          return res;
+        }
 
-    const result = fetchData().then(
-      res => {
-        setRodadasState(res);
-        calculaPontos(res);
-        return res;
-      }
-    );
-  }, []);
+      );
+    }
 
+
+  }, [rodadasState]);
+
+  artilheiros.clear();
+  calculaPontos(rodadasState);
+  calculaArtilheiros(rodadasState);
+  calculaPunidos(rodadasState);
 
   function calculaPontos(rodadasC: Rodada[]) {
     estatisticas.linhas = [];
@@ -57,6 +70,65 @@ export default function Home() {
 
   }
 
+  function calculaArtilheiros(rodadas: Rodada[]) {
+    rodadas.map(rodada => {
+      rodada.jogos.map(
+        (jogo) => {
+          jogo.eventos?.filter(e => e.tipo == "gol").map(
+            evento => {
+              if (artilheiros.has(evento.nome)) {
+                artilheiros.get(evento.nome)!.gols++;
+              } else {
+                nomesArtilheiros.push(evento.nome);
+                artilheiros.set(evento.nome, { gols: 1, time: timesMapNome.get(evento.time)! })
+
+
+              }
+            }
+          )
+        }
+      )
+
+    })
+  }
+
+  function calculaPunidos(rodadas: Rodada[]) {
+    rodadas.map(rodada => {
+      rodada.jogos.map(
+        (jogo) => {
+          jogo.eventos?.filter(e => e.tipo != "gol").map(
+            evento => {
+              if (evento.nome != "?") {
+
+                if (punidos.has(evento.nome)) {
+                  if (evento.tipo == "cartao_amarelo")
+                    punidos.get(evento.nome)!.amarelo++;
+                  if (evento.tipo == "cartao_azul")
+                    punidos.get(evento.nome)!.azul++;
+                  if (evento.tipo == "cartao_vermelho")
+                    punidos.get(evento.nome)!.vermelho++;
+                } else {
+                  nomesPunidos.push(evento.nome);
+
+                  punidos.set(evento.nome, {
+                    amarelo: evento.tipo == "cartao_amarelo" ? 1 : 0,
+                    azul: evento.tipo == "cartao_azul" ? 1 : 0,
+                    vermelho: evento.tipo == "cartao_vermelho" ? 1 : 0,
+                    time: timesMapNome.get(evento.time)!
+                  })
+
+
+                }
+              }
+            }
+          )
+        }
+      )
+
+    })
+
+  }
+
 
 
   return (
@@ -78,12 +150,11 @@ export default function Home() {
 
       </div>
       <div className="flex flex-row justify-center">
-        {rodadasState.length > 0 &&
-          <>
-            <ListaArtilheirosComponent rodadas={rodadasState} />
-            <ListaPunidosComponent rodadas={rodadasState} />
-          </>
-        }
+        <>
+          {artilheiros.size > 0 && <ListaArtilheirosComponent {... { artilheiros, nomes: nomesArtilheiros }} />}
+          {punidos.size > 0 && <ListaPunidosComponent  {... { punidos, nomes: nomesPunidos }}/>}
+        </>
+
       </div>
 
     </>
