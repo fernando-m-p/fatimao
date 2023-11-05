@@ -27,7 +27,6 @@ export default function Home() {
       const fetchData = async () => getRodadas();
       const result = fetchData().then(
         res => {
-          console.log("useEfect");
           setRodadasState(res);
           return res;
         }
@@ -149,7 +148,7 @@ export default function Home() {
 
 
       </div>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-col sm:flex-row justify-center">
         <>
           {artilheiros.size > 0 && <ListaArtilheirosComponent {... { artilheiros, nomes: nomesArtilheiros }} />}
           {punidos.size > 0 && <ListaPunidosComponent  {... { punidos, nomes: nomesPunidos }}/>}

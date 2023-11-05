@@ -13,7 +13,7 @@ export default function PopOverJogo({ jogo }: { jogo: Jogo }) {
     <PopoverContent>
       <div className="flex flex-col flex-1 md:justify-between">
 
-        <div className="flex flex-row md:flex-1">
+        <div className="flex flex-row md:flex-1 justify-between">
           <div className="flex justify-start md:flex-1">
             {mandante?.escudo && <Image src={mandante?.escudo} alt={`Escudo do time ${mandante?.nome}`} width={60} height={60} className="h-10 w-10 m-auto md:h-8 md:w-8" />}
             <p className={`hidden md:flex text-xl ${ganhou > 0 ? "font-bold" : "font-normal"} mt-auto mx-4 whitespace-nowrap  `}>
@@ -37,7 +37,7 @@ export default function PopOverJogo({ jogo }: { jogo: Jogo }) {
 
 
 
-        <div className="flex flex-row md:flex-1">
+        <div className="flex flex-row md:flex-1 justify-between">
           <div className="flex flex-col justify-between md:flex-1 aling-end">
             {
               jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map((evento,index) => (
