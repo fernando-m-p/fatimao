@@ -40,8 +40,8 @@ export default function PopOverJogo({ jogo }: { jogo: Jogo }) {
         <div className="flex flex-row md:flex-1">
           <div className="flex flex-col justify-between md:flex-1 aling-end">
             {
-              jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map(evento => (
-                <span className="flex justify-start text-xs gap-2">
+              jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map((evento,index) => (
+                <span key={evento.nome+index} className="flex justify-start text-xs gap-2">
                   {Icons.ball({}, "xs")}
                   <span>
                     {" - "}
@@ -56,8 +56,8 @@ export default function PopOverJogo({ jogo }: { jogo: Jogo }) {
           </div>
           <div className="flex flex-col justify-start md:flex-1 aling-end">
             {
-              jogo.eventos?.filter(jogo => jogo.time == visitante?.nome && jogo.tipo == "gol").map(evento => (
-                <span className="flex justify-end text-xs gap-2">
+              jogo.eventos?.filter(jogo => jogo.time == visitante?.nome && jogo.tipo == "gol").map((evento,index) => (
+                <span key={evento.nome+index} className="flex justify-end text-xs gap-2">
                   <span>
                     {evento.nome}
                   </span>

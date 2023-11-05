@@ -174,8 +174,8 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                             </div>
                                             <div className="flex flex-col justify-start md:flex-1 aling-end">
                                                 {
-                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map(evento => (
-                                                        <span className="flex justify-start ml-auto w-1/2 gap-2">
+                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map((evento,index) => (
+                                                        <span  key={evento.nome+index} className="flex justify-start ml-auto w-1/2 gap-2">
                                                             {Icons.ball({},"l")} {" - "} {evento.nome}
                                                         </span>
 
@@ -223,8 +223,8 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                             </div>
                                             <div className="flex flex-col justify-start md:flex-1 aling-end">
                                                 {
-                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == visitante?.nome && jogo.tipo == "gol").map(evento => (
-                                                        <span className="flex justify-start ml-auto w-1/2 gap-2">
+                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == visitante?.nome && jogo.tipo == "gol").map((evento,index) => (
+                                                        <span key={evento.nome+index} className="flex justify-start ml-auto w-1/2 gap-2">
                                                             {Icons.ball({},"l")} {" - "} {evento.nome}
                                                         </span>
 
