@@ -23,7 +23,7 @@ export default function Tabela({ estatisticas }: TabelaProps) {
       </div>
 
       <div className={"flex " + (show ? "" : "")}>
-        <div className={cabecalhoClass + " border-r-0"}>Classificacao</div>
+        <div className={cabecalhoClass + " border-r-0"}>Classificação</div>
         <div className={cabecalhoClass + " flex-1 border-l-0"}></div>
         <div className={cabecalhoClass}>P</div>
         <div className={cabecalhoClass + escodeMobile} >J</div>

@@ -22,7 +22,7 @@ export default function ListaArtilheirosComponent({ artilheiros, nomes }: { arti
             <div className={"flex flex-col space-y-1.5 py-6"}>
                 <div className="border-b-2 border-black">
 
-                    <h2 className={classificacao__header__tituloClass}>Principais Artiheiros</h2>
+                    <h2 className={classificacao__header__tituloClass}>Principais Artilheiros</h2>
                 </div>
 
                 <ul className={lista_jogoClass}>
