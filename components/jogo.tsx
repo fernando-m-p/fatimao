@@ -6,6 +6,8 @@ interface JogoProps {
 
 import svg from "@/public/versus.svg"
 import Image from "next/image";
+import { Popover, PopoverTrigger } from "./ui/popover";
+import PopOverJogo from "./PopOverJogo";
 
 const jogo__informacoesClass = "text-gray-500 font-sans text-xs font-bold tracking-tighter uppercase";
 const jogoClass = "h-28 flex flex-col items-center text-center justify-center theme";
@@ -25,6 +27,10 @@ export default function JogoComponent({ jogo }: JogoProps) {
     const mandante = timesMap.get(jogo.mandante.time);
     const visitante = timesMap.get(jogo.visitante.time);
     return (
+        <Popover key={jogo.data+jogo.hora+ "-elemento"}>
+        <PopoverTrigger asChild>
+
+
         <div className={jogoClass}>
             <div className={jogo__informacoesClass}>
                 <span className="jogo__informacoes--data"> {jogo.data} </span>
@@ -76,6 +82,9 @@ export default function JogoComponent({ jogo }: JogoProps) {
                 </div>
             </div>
         </div>
+        </PopoverTrigger>
+        <PopOverJogo jogo={jogo}/>
+        </Popover>
     )
 
 }
