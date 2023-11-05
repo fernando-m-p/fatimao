@@ -87,10 +87,10 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
         jogo.mandante.gols = parseInt(data.golsMandante);
         jogo.visitante.gols = parseInt(data.golsVisitante);
         jogo.finalizado = data.finalizado;
-        if(data.eventos && data.eventos?.length>0){
+        if (data.eventos && data.eventos?.length > 0) {
 
             jogo.eventos = data.eventos;
-        }else{
+        } else {
             jogo.eventos = [];
         }
         gravarJogo({
@@ -153,7 +153,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
                     <Form {...form}  >
                         <form onSubmit={form.handleSubmit(onSubmit)} className="mx-10">
-                            <Card  className="my-2">
+                            <Card className="my-2">
                                 <CardHeader className="flex justify-between flex-row">
                                     <div>
                                         {`${rodadasState.jogo.data} - ${rodadasState.jogo.hora}`}
@@ -165,11 +165,23 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                 <CardContent className="flex">
 
                                     <div className="flex  flex-1 md:justify-between">
-                                        <div className="flex justify-start md:flex-1">
-                                            {mandante?.escudo && <Image src={mandante?.escudo} alt={`Escudo do time ${mandante?.nome}`} width={60} height={60} className="h-10 w-10 m-auto md:h-20 md:w-20" />}
-                                            <p className={`hidden md:flex text-xl ${ganhou > 0 ? "font-bold" : "font-normal"} my-auto mx-4 whitespace-nowrap `}>
-                                                {`${mandante?.nome}`}
-                                            </p>
+                                        <div className="flex flex-col md:flex-1">
+                                            <div className="flex justify-start md:flex-1">
+                                                {mandante?.escudo && <Image src={mandante?.escudo} alt={`Escudo do time ${mandante?.nome}`} width={60} height={60} className="h-10 w-10 m-auto md:h-20 md:w-20" />}
+                                                <p className={`hidden md:flex text-xl ${ganhou > 0 ? "font-bold" : "font-normal"} mt-auto mx-4 whitespace-nowrap  `}>
+                                                    {`${mandante?.nome}`}
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-col justify-start md:flex-1 aling-end">
+                                                {
+                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == mandante?.nome && jogo.tipo == "gol").map(evento => (
+                                                        <span className="flex justify-start ml-auto w-1/2 gap-2">
+                                                            {Icons.ball({},"l")} {" - "} {evento.nome}
+                                                        </span>
+
+                                                    ))
+                                                }
+                                            </div>
                                         </div>
                                         <div className="flex flex-rows text-3xl justify-between font-bold my-auto flex-1">
                                             <FormField
@@ -200,14 +212,25 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
                                             />
                                         </div>
-                                        <div className="flex justify-end md:flex-1">
-                                            <p className={`hidden md:flex text-xl ${ganhou < 0 ? "font-bold" : "font-normal"} my-auto mx-4 whitespace-nowrap `}>
+                                        <div className="flex flex-col md:flex-1">
+                                            <div className="flex justify-start md:flex-1">
+                                                <p className={`hidden md:flex text-xl ${ganhou < 0 ? "font-bold" : "font-normal"} mt-auto mx-4 whitespace-nowrap `}>
 
-                                                {` ${visitante?.nome}`}
+                                                    {` ${visitante?.nome}`}
 
-                                            </p>
-                                            {visitante?.escudo && <Image src={visitante?.escudo} alt={`Escudo do time ${visitante?.nome}`} width={60} height={60} className="h-10 w-10 m-auto md:h-20 md:w-20" />}
+                                                </p>
+                                                {visitante?.escudo && <Image src={visitante?.escudo} alt={`Escudo do time ${visitante?.nome}`} width={60} height={60} className="h-10 w-10 m-auto md:h-20 md:w-20" />}
+                                            </div>
+                                            <div className="flex flex-col justify-start md:flex-1 aling-end">
+                                                {
+                                                    rodadasState.jogo.eventos?.filter(jogo => jogo.time == visitante?.nome && jogo.tipo == "gol").map(evento => (
+                                                        <span className="flex justify-start ml-auto w-1/2 gap-2">
+                                                            {Icons.ball({},"l")} {" - "} {evento.nome}
+                                                        </span>
 
+                                                    ))
+                                                }
+                                            </div>
                                         </div>
 
 
@@ -252,7 +275,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
                                 <Card className="flex-1">
                                     <CardContent >
-                            <h2 className="text-2xl text-center">Gerenciar Gols</h2>
+                                        <h2 className="text-2xl text-center">Gerenciar Gols</h2>
 
                                         <div className="eventos flex flex-col ">
                                             <div className="flex flex-col">
@@ -260,7 +283,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                     <div key={field.id}>
                                                         {
                                                             field.tipo == "gol" &&
-                                                            <div  className="flex flex-col sm:flex-row justify-between gap-6 my-2">
+                                                            <div className="flex flex-col sm:flex-row justify-between gap-6 my-2">
                                                                 <FormField
                                                                     control={form.control}
                                                                     name={`eventos.${index}.nome`}
@@ -273,7 +296,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                                         </FormItem>
                                                                     )}
                                                                 />
-                                                                <FormFieldTimeComponent fieldArray={field} {... {form, index, mandante, visitante} } />
+                                                                <FormFieldTimeComponent fieldArray={field} {... { form, index, mandante, visitante }} />
                                                                 <Button
                                                                     type="button"
                                                                     variant={"destructive"}
@@ -315,54 +338,54 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                         field.tipo != "gol" &&
                                                         <Card key={field.id} className="my-2">
                                                             <CardContent>
-                                                            <div  className="flex flex-col sm:flex-row my-2 justify-between gap-6">
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name={`eventos.${index}.nome`}
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormControl>
-                                                                                <Input {...field}  placeholder="Nome do Jogador"/>
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                <FormFieldTimeComponent fieldArray={field} {... {form, index, mandante, visitante} } />
-
-
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name={`eventos.${index}.tipo`}
-                                                                    render={({ field }) => (
-                                                                        <FormItem className="flex-1">
-                                                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                                <div className="flex flex-col sm:flex-row my-2 justify-between gap-6">
+                                                                    <FormField
+                                                                        control={form.control}
+                                                                        name={`eventos.${index}.nome`}
+                                                                        render={({ field }) => (
+                                                                            <FormItem>
                                                                                 <FormControl>
-                                                                                    <SelectTrigger >
-                                                                                        <SelectValue placeholder="Gol? Cartão?" />
-                                                                                    </SelectTrigger>
+                                                                                    <Input {...field} placeholder="Nome do Jogador" />
                                                                                 </FormControl>
-                                                                                <SelectContent >
-                                                                                    <SelectItemsCatoes/>
-                                                                                </SelectContent>
-                                                                            </Select>
+                                                                                <FormMessage />
+                                                                            </FormItem>
+                                                                        )}
+                                                                    />
 
-                                                                            <FormMessage />
+                                                                    <FormFieldTimeComponent fieldArray={field} {... { form, index, mandante, visitante }} />
 
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                                <Button
-                                                                    type="button"
-                                                                    variant={"destructive"}
-                                                                    size="sm"
-                                                                    className="my-auto"
-                                                                    onClick={() => remove(index)}
-                                                                >
-                                                                    {Icons.x({})}
-                                                                </Button>
-                                                            </div>
+
+                                                                    <FormField
+                                                                        control={form.control}
+                                                                        name={`eventos.${index}.tipo`}
+                                                                        render={({ field }) => (
+                                                                            <FormItem className="flex-1">
+                                                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                                                    <FormControl>
+                                                                                        <SelectTrigger >
+                                                                                            <SelectValue placeholder="Gol? Cartão?" />
+                                                                                        </SelectTrigger>
+                                                                                    </FormControl>
+                                                                                    <SelectContent >
+                                                                                        <SelectItemsCatoes />
+                                                                                    </SelectContent>
+                                                                                </Select>
+
+                                                                                <FormMessage />
+
+                                                                            </FormItem>
+                                                                        )}
+                                                                    />
+                                                                    <Button
+                                                                        type="button"
+                                                                        variant={"destructive"}
+                                                                        size="sm"
+                                                                        className="my-auto"
+                                                                        onClick={() => remove(index)}
+                                                                    >
+                                                                        {Icons.x({})}
+                                                                    </Button>
+                                                                </div>
                                                             </CardContent>
                                                         </Card>
                                                     }
