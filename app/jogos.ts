@@ -36,15 +36,15 @@ timesMap.set(2, { nome: nomeTimes.Bayern, abreviado: "BAY", escudo: "https://s.s
 timesMap.set(5, { nome: nomeTimes.Roma, abreviado: "ROM", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/roma.svg" });
 timesMap.set(4, { nome: nomeTimes.Real, abreviado: "REL", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/real-madrid.svg" });
 timesMap.set(1, { nome: nomeTimes.Barcelona, abreviado: "BAR", escudo: "https://s.sde.globo.com/media/teams/2018/03/11/barcelona.svg" });
-timesMap.set(3, { nome: nomeTimes.Internazionale, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
+timesMap.set(3, { nome: nomeTimes.Internazionale, abreviado: "INT", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
 
 
 export const timesMapNome: Map<string, Time> = new Map<string, Time>();
 timesMapNome.set(nomeTimes.Bayern, { nome: nomeTimes.Bayern, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2018/03/11/bayern-de-munique.svg" });
 timesMapNome.set(nomeTimes.Roma, { nome: nomeTimes.Roma, abreviado: "ROM", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/roma.svg" });
 timesMapNome.set(nomeTimes.Real, { nome: nomeTimes.Real, abreviado: "REL", escudo: "https://s.sde.globo.com/media/teams/2018/03/12/real-madrid.svg" });
-timesMapNome.set(nomeTimes.Barcelona, { nome: nomeTimes.Barcelona, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/teams/2018/03/11/barcelona.svg" });
-timesMapNome.set(nomeTimes.Internazionale, { nome: nomeTimes.Internazionale, abreviado: "BAY", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
+timesMapNome.set(nomeTimes.Barcelona, { nome: nomeTimes.Barcelona, abreviado: "BAR", escudo: "https://s.sde.globo.com/media/teams/2018/03/11/barcelona.svg" });
+timesMapNome.set(nomeTimes.Internazionale, { nome: nomeTimes.Internazionale, abreviado: "INT", escudo: "https://s.sde.globo.com/media/organizations/2021/03/31/Inter_de_Mil%C3%A3o_2021.svg" });
 
 
 
