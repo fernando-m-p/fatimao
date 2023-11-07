@@ -60,7 +60,7 @@ export default function JogoComponent({ jogo }: JogoProps) {
                     }
                 </div>
                 <div className={placar_boxClass}>
-                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.mandante.gols:""}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado|| jogo.aoVivo? jogo.mandante.gols:""}</span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" ml-1"}></span>
                     <span className={placar_box_versusClass}>
                         <svg viewBox="0 0 100 100" id="scoreboard-vs-icon" width="100%" height="100%">
@@ -72,7 +72,7 @@ export default function JogoComponent({ jogo }: JogoProps) {
                         </svg>
                     </span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" mr-1"}></span>
-                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.visitante.gols :""}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado|| jogo.aoVivo? jogo.visitante.gols :""}</span>
                 </div>
                 <div className={placar__equipesClass+placar__equipes__visitanteClass}>
                     {visitante &&
