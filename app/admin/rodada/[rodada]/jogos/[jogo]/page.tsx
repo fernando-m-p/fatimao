@@ -91,6 +91,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
         jogo.mandante.gols = parseInt(data.golsMandante);
         jogo.visitante.gols = parseInt(data.golsVisitante);
         jogo.finalizado = data.finalizado;
+        jogo.aoVivo = data.aoVivo;
         if (data.eventos && data.eventos?.length > 0) {
 
             jogo.eventos = data.eventos;
