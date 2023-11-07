@@ -36,6 +36,10 @@ const jogoFormSchema = z.object({
     ,
     finalizado: z
         .boolean({
+        })
+    ,
+    aoVivo: z
+        .boolean({
         }),
     eventos: z
         .array(
@@ -117,6 +121,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                 form.setValue("golsMandante", res?.mandante?.gols.toString() || "0");
                 form.setValue("golsVisitante", res?.visitante?.gols.toString() || "0");
                 form.setValue("finalizado", res?.finalizado || false);
+                form.setValue("aoVivo", res?.aoVivo || false);
                 form.setValue("eventos", res?.eventos);
 
                 setRodadasState({ jogo: res! });
@@ -249,6 +254,26 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                 <FormItem>
                                                     <FormLabel>
                                                         <Label htmlFor="airplane-mode">Acabou?</Label>
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Switch
+                                                            checked={field.value}
+                                                            onCheckedChange={field.onChange}
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            </div>
+                                        )}
+
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="aoVivo"
+                                        render={({ field }) => (
+                                            <div className="flex items-center space-x-2">
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        <Label htmlFor="airplane-mode">Ao Vivo?</Label>
                                                     </FormLabel>
                                                     <FormControl>
                                                         <Switch
