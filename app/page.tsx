@@ -56,11 +56,12 @@ export default async function Home() {
         (jogo) => {
           jogo.eventos?.filter(e => e.tipo == "gol").map(
             evento => {
-              if (artilheiros.has(evento.nome)) {
-                artilheiros.get(evento.nome)!.gols++;
+              const nome_evento = evento.nome.trim();
+              if (artilheiros.has(nome_evento)) {
+                artilheiros.get(nome_evento)!.gols++;
               } else {
-                nomesArtilheiros.push(evento.nome);
-                artilheiros.set(evento.nome, { gols: 1, time: timesMapNome.get(evento.time)! })
+                nomesArtilheiros.push(nome_evento);
+                artilheiros.set(nome_evento, { gols: 1, time: timesMapNome.get(evento.time)! })
 
 
               }
@@ -79,18 +80,19 @@ export default async function Home() {
           jogo.eventos?.filter(e => e.tipo != "gol").map(
             evento => {
               if (evento.nome != "?") {
+                const nome_evento = evento.nome.trim();
 
-                if (punidos.has(evento.nome)) {
+                if (punidos.has(nome_evento)) {
                   if (evento.tipo == "cartao_amarelo")
-                    punidos.get(evento.nome)!.amarelo++;
+                    punidos.get(nome_evento)!.amarelo++;
                   if (evento.tipo == "cartao_azul")
-                    punidos.get(evento.nome)!.azul++;
+                    punidos.get(nome_evento)!.azul++;
                   if (evento.tipo == "cartao_vermelho")
-                    punidos.get(evento.nome)!.vermelho++;
+                    punidos.get(nome_evento)!.vermelho++;
                 } else {
-                  nomesPunidos.push(evento.nome);
+                  nomesPunidos.push(nome_evento);
 
-                  punidos.set(evento.nome, {
+                  punidos.set(nome_evento, {
                     amarelo: evento.tipo == "cartao_amarelo" ? 1 : 0,
                     azul: evento.tipo == "cartao_azul" ? 1 : 0,
                     vermelho: evento.tipo == "cartao_vermelho" ? 1 : 0,

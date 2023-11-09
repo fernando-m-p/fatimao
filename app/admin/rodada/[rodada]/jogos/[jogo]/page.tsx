@@ -74,7 +74,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
         mode: "onChange",
     })
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append,insert, remove } = useFieldArray({
         name: "eventos",
         control: form.control,
     })
@@ -86,8 +86,10 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
         jogo.finalizado = data.finalizado;
         jogo.aoVivo = data.aoVivo;
         if (data.eventos && data.eventos?.length > 0) {
-
-            jogo.eventos = data.eventos;
+            jogo.eventos = [];
+            data.eventos.map((evento,index) =>{
+                jogo?.eventos?.push({nome: evento.nome.trim(), time: evento.time, tipo:evento.tipo});
+            }) 
         } else {
             jogo.eventos = [];
         }
@@ -112,7 +114,11 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                 form.setValue("golsVisitante", res?.visitante?.gols.toString() || "0");
                 form.setValue("finalizado", res?.finalizado || false);
                 form.setValue("aoVivo", res?.aoVivo || false);
-                form.setValue("eventos", res?.eventos);
+                form.resetField("eventos");
+                res?.eventos?.map((evento,index) =>{
+                    insert(index,evento);
+                })
+
 
                 setRodadasState({ jogo: res! });
 
