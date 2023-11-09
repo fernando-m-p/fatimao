@@ -1,4 +1,3 @@
-"use client"
 import { DashboardHeader } from "@/components/header"
 import Tabela from '@/components/tabela'
 import TabelaRodada from '@/components/tabelaJogos';
@@ -7,37 +6,19 @@ import { timesMap, pegaEstatisticas, timesMapNome } from './jogos'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link';
 import { getRodadas } from "@/lib/firabase";
-import { useEffect, useState } from "react";
 import ListaArtilheirosComponent from "@/components/ListaArtilheiros";
 import ListaPunidosComponent from "@/components/ListaPunidos";
 
 
-export default function Home() {
-  const [rodadasState, setRodadasState] = useState([] as Rodada[])
-  const [estatisticas, setEstatisticas] = useState({ linhas: [] } as { linhas: Linha[] })
+
+export default async function Home() {
+  const rodadasState = await getRodadas();
+  const estatisticas = { linhas: [] } as { linhas: Linha[] };
   const artilheiros = new Map<string, { gols: number, time: Time }>();
   const punidos = new Map<string, { amarelo: number, azul: number, vermelho: number, time: Time }>();
   const nomesArtilheiros = [] as string[];
   const nomesPunidos = [] as string[];
 
-
-
-  useEffect(() => {
-    if (rodadasState.length == 0) {
-      const fetchData = async () => getRodadas();
-      const result = fetchData().then(
-        res => {
-          setRodadasState(res);
-          return res;
-        }
-
-      );
-    }
-
-
-  }, [rodadasState]);
-
-  artilheiros.clear();
   calculaPontos(rodadasState);
   calculaArtilheiros(rodadasState);
   calculaPunidos(rodadasState);
@@ -137,18 +118,11 @@ export default function Home() {
           <Button variant={"outline"}>Admin</Button>
         </Link>
       </DashboardHeader>
-      <div className='flex flex-col sm:flex-row'>
+      <div className='flex flex-col xl:flex-row'>
         {estatisticas.linhas.length > 0 && <Tabela estatisticas={estatisticas} />}
-        {rodadasState.length > 0 &&
-          <>
-            <TabelaRodada rodadas={rodadasState} />
-
-          </>
-        }
-
-
+        {rodadasState.length > 0 && <TabelaRodada rodadas={rodadasState} />}
       </div>
-      <div className="flex flex-col sm:flex-row justify-center">
+      <div className="flex flex-col xl:flex-row justify-center">
         <>
           {artilheiros.size > 0 && <ListaArtilheirosComponent {... { artilheiros, nomes: nomesArtilheiros }} />}
           {punidos.size > 0 && <ListaPunidosComponent  {... { punidos, nomes: nomesPunidos }}/>}

@@ -1,16 +1,13 @@
 "use client"
 import { Rodada } from "@/app/model/interfaces"
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
+import { Card, CardContent, CardHeader } from "./ui/card"
 import { timesMap } from "@/app/jogos"
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Button } from "./ui/button"
 import Image from "next/image"
-import { AspectRatio } from "./ui/aspect-ratio"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
+import CardFooterAdmin from "./CardFooterAdmin"
 
 export default function CardsAdmin({ rodadas }: { rodadas: Rodada[] }) {
-    const session = useSession();
 
     return (
         <div className="grid md:grid-cols-2 p-4 gap-6 text-center">
@@ -73,15 +70,13 @@ export default function CardsAdmin({ rodadas }: { rodadas: Rodada[] }) {
 
 
                                                 </CardContent>
-                                                <CardFooter className="justify-center">
-                                                    {session.data?.user.admin &&
-                                                        <Link href={`/admin/rodada/${rodada.index}/jogos/${index}`}>
-                                                            <Button variant={jogoa.finalizado ? "secondary" : "default"} size={"lg"}>
-                                                                {jogoa.finalizado ? "Alterar" : "Adicionar"}
-                                                            </Button>
-                                                        </Link>
-                                                    }
-                                                </CardFooter>
+                                                <CardFooterAdmin>
+                                                    <Link href={`/admin/rodada/${rodada.index}/jogos/${index}`}>
+                                                        <Button variant={jogoa.finalizado ? "secondary" : "default"} size={"lg"}>
+                                                            {jogoa.finalizado ? "Alterar" : "Adicionar"}
+                                                        </Button>
+                                                    </Link>
+                                                </CardFooterAdmin>
                                             </Card>
                                         )
                                     }
