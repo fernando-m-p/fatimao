@@ -21,7 +21,8 @@ const placar_boxClass = "items-center text-[#111111] flex grow-[2] h-10 justify-
 const placar_box__valorClass = "text-xl font-sans font-bold align-middle ";
 const placar_box__valor_PenaltisClass = "text-xs";
 const placar_box_versusClass = "flex h-2 w-2 my-0 mx-1.5 overflow-hidden align-middle"
-
+const beforeAoVivoClass = "before:content-[''] before:block before:w-2.5 before:h-2.5 before:bg-red-600 before:my-auto before:mr-0.5 before:rounded-full before:animate-ping";
+const aoVivoClass = "flex "+beforeAoVivoClass;
 
 export default function JogoComponent({ jogo }: JogoProps) {
     const mandante = timesMap.get(jogo.mandante.time);
@@ -37,6 +38,12 @@ export default function JogoComponent({ jogo }: JogoProps) {
                 <span className={jogo__informacoes__localClass}> {jogo.local} </span>
                 <span className="jogo__informacoes--hora"> {jogo.hora} </span>
             </div>
+            {jogo.aoVivo &&
+            <div className={jogo__informacoesClass}>
+                <span className={aoVivoClass}> Ao vivo </span>
+                
+            </div>
+            }
             <div className={placarClass}>
                 <div className={placar__equipesClass+placar__equipes__mandanteClass}>
                     <span className="equipes__sigla" title={mandante?.nome}>{mandante?.abreviado}</span>
@@ -53,7 +60,7 @@ export default function JogoComponent({ jogo }: JogoProps) {
                     }
                 </div>
                 <div className={placar_boxClass}>
-                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.mandante.gols:""}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado|| jogo.aoVivo? jogo.mandante.gols:""}</span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" ml-1"}></span>
                     <span className={placar_box_versusClass}>
                         <svg viewBox="0 0 100 100" id="scoreboard-vs-icon" width="100%" height="100%">
@@ -65,7 +72,7 @@ export default function JogoComponent({ jogo }: JogoProps) {
                         </svg>
                     </span>
                     <span className={placar_box__valorClass + placar_box__valor_PenaltisClass +" mr-1"}></span>
-                    <span className={placar_box__valorClass}>{jogo.finalizado? jogo.visitante.gols :""}</span>
+                    <span className={placar_box__valorClass}>{jogo.finalizado|| jogo.aoVivo? jogo.visitante.gols :""}</span>
                 </div>
                 <div className={placar__equipesClass+placar__equipes__visitanteClass}>
                     {visitante &&

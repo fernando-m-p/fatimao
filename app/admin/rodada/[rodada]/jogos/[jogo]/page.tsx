@@ -1,13 +1,11 @@
 "use client"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { DashboardHeader } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getJogo, gravarJogo } from "@/lib/firabase";
 import { useEffect, useState } from "react";
-import { Jogo, Rodada } from "../../../../../model/interfaces";
+import { Jogo } from "../../../../../model/interfaces";
 import Image from "next/image"
 import { nomeTimes, timesMap } from "@/app/jogos";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -16,15 +14,13 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Layout from "@/app/admin/rodada/[rodada]/jogos/[jogo]/Layout"
 import FormFieldTimeComponent from "@/components/FormFieldTime"
-import Link from "next/link";
 import { useFieldArray, useForm } from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { redirect } from "next/dist/server/api-utils";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent,  SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Icons } from "@/components/icons";
-import { Separator } from "@radix-ui/react-select";
 import { SelectItemsCatoes } from "@/components/SelectItems";
 import { useRouter } from "next/navigation";
+import DashboardHeaderAdmin from "@/components/DashBoardHeaderAdmin";
 
 
 const jogoFormSchema = z.object({
@@ -35,6 +31,10 @@ const jogoFormSchema = z.object({
         .string()
     ,
     finalizado: z
+        .boolean({
+        })
+    ,
+    aoVivo: z
         .boolean({
         }),
     eventos: z
@@ -57,9 +57,6 @@ type ProfileFormValues = z.infer<typeof jogoFormSchema>
 export default function RodadaPage({ params }: { params: { rodada: string, jogo: string } }) {
 
     const [rodadasState, setRodadasState] = useState({ jogo: {} } as { jogo: Jogo });
-    const id = params.rodada;
-
-
 
     const defaultValues: Partial<ProfileFormValues> = {
         golsMandante: (rodadasState.jogo.mandante ? rodadasState.jogo.mandante.gols.toString() : "0"),
@@ -87,6 +84,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
         jogo.mandante.gols = parseInt(data.golsMandante);
         jogo.visitante.gols = parseInt(data.golsVisitante);
         jogo.finalizado = data.finalizado;
+        jogo.aoVivo = data.aoVivo;
         if (data.eventos && data.eventos?.length > 0) {
             jogo.eventos = [];
             data.eventos.map((evento,index) =>{
@@ -106,10 +104,6 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
     }
 
 
-    const user = session.data?.user;
-
-
-
     useEffect(() => {
         const id = params.rodada;
         const fetchData = async () => getJogo({ rodada: params.rodada, idJogo: params.jogo });
@@ -119,10 +113,12 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                 form.setValue("golsMandante", res?.mandante?.gols.toString() || "0");
                 form.setValue("golsVisitante", res?.visitante?.gols.toString() || "0");
                 form.setValue("finalizado", res?.finalizado || false);
+                form.setValue("aoVivo", res?.aoVivo || false);
                 form.resetField("eventos");
                 res?.eventos?.map((evento,index) =>{
                     insert(index,evento);
                 })
+
 
                 setRodadasState({ jogo: res! });
 
@@ -143,18 +139,7 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
 
             <Layout>
                 <div >
-                    <DashboardHeader heading='Fatimão 2023' src='/escudo.png'  >
-                        <div className="flex flex-rows">
-
-                            <Avatar >
-                                <AvatarImage src={user?.image || ""} alt={`Avatar do usuário ${user?.name}`} />
-                                <AvatarFallback>{user?.name}</AvatarFallback>
-                            </Avatar>
-
-                            <Button variant={"outline"} onClick={() => { signOut() }}>Sair</Button>
-                        </div>
-
-                    </DashboardHeader>
+                    <DashboardHeaderAdmin/>
 
                     <Form {...form}  >
                         <form onSubmit={form.handleSubmit(onSubmit)} className="mx-10">
@@ -254,6 +239,26 @@ export default function RodadaPage({ params }: { params: { rodada: string, jogo:
                                                 <FormItem>
                                                     <FormLabel>
                                                         <Label htmlFor="airplane-mode">Acabou?</Label>
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Switch
+                                                            checked={field.value}
+                                                            onCheckedChange={field.onChange}
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            </div>
+                                        )}
+
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="aoVivo"
+                                        render={({ field }) => (
+                                            <div className="flex items-center space-x-2">
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        <Label htmlFor="airplane-mode">Ao Vivo?</Label>
                                                     </FormLabel>
                                                     <FormControl>
                                                         <Switch

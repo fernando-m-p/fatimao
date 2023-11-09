@@ -1,7 +1,5 @@
-
+"use client"
 import { Rodada } from "@/app/model/interfaces";
-import JogoComp from "@/components/jogo"
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { useEffect, useState } from "react";
 import RodadaComp from '@/components/listaJogos';
 

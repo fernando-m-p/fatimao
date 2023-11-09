@@ -32,6 +32,7 @@ export type Jogo = {
     mandante:JogoTime;
     visitante:JogoTime;
     finalizado:boolean;
+    aoVivo:boolean;
     local:string;
     data:string;
     hora:string;

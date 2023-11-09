@@ -20,6 +20,7 @@ export default function FormFieldTimeComponent({ fieldArray, form, visitante, ma
         golsMandante: string;
         golsVisitante: string;
         finalizado: boolean;
+        aoVivo: boolean;
         eventos?: {
             nome: string;
             time: nomeTimes;
